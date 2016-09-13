@@ -5,37 +5,56 @@
 	<title>learn d3 from jikexuyuan step by step</title>
 </head>
 <body>
-	<p>Apple</p>
-	<p id="pear" onClick="removeMe()">Pear (click to remove me)</p>
-	<p>Banana</p>
 	
 	<script src='./d3.v4.js'></script>
 	<script>
-		// select element by tag or id or class
-		var body = d3.select('body');
+		/**
+		 * @desc svg
+		 *  SVG 绘制的是矢量图，因此对图像进行放大不会失真。
+		 *	基于 XML，可以为每个元素添加 JavaScript 事件处理器。
+		 *	每个图形均视为对象，更改对象的属性，图形也会改变。
+		 *	不适合游戏应用。
+		 */
 
-		var p1 = body.select('p');  // the first p element
-		p1.style('color', 'blue');
+		/**
+		 * @desc canvas
+		 * 	 绘制的是位图，图像放大后会失真。
+		 *	 不支持事件处理器。
+		 *	 能够以 .png 或 .jpg 格式保存图像
+		 *	 适合游戏应用
+		 */
 
-		var p2 = body.select('#pear')
-					 .style('color', 'green')
+		// D3 虽然没有明文规定一定要在 SVG 中绘图，
+		// 但是 D3 提供了众多的 SVG 图形的生成器，它们都是只支持 SVG 的
 
-		// selectAll elements
-		var paras = body.selectAll('p')
-						.style('background-color', '#eee');
+		/** 
+		 * @desc 绘制一个svg横向柱状图 * 数据可视化
+		 *	 <svg>
+		 *	 <rect></rect>
+		 *	 <rect></rect>
+		 *	 </svg>
+		 */
 
-		// append element or insert element
-		var p4 = body.append('p')
-					 .text('append element')
-					 .style('color', 'red');
+		var dataset = [ 250 , 210 , 170 , 130 , 90 ];  //数据（表示矩形的宽度）
 
-		var p5 = body.insert('p', '#pear')
-					 .text('insert element')
-					 .style('color', 'red');
+		var rectHeight = 25;   //每个矩形所占的像素高度(包括空白)
 
-		function removeMe() {
-			p2.remove();
-		}
+		var svg = d3.select('body')
+					.append('svg');
+
+		svg.selectAll("rect")   //选择svg内所有的矩形
+		    .data(dataset)  //绑定数组
+		    .enter()        //指定选择集的enter部分
+		    .append("rect") //添加足够数量的矩形元素
+		    .attr('x', 20)
+		    .attr('y', function (d, i) {
+		    	return i * rectHeight;
+		    })
+		    .attr('width', function (d, i) {
+		    	return d;
+		    })
+		    .attr('height', rectHeight - 2)
+		    .attr('fill', 'steelblue');
 
 	</script>
 </body>
