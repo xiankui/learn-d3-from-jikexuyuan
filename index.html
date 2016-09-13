@@ -5,7 +5,18 @@
 	<title>learn d3 from jikexuyuan step by step</title>
 </head>
 <body>
-	<h1>D3.js</h1>
+	<p>hello world</p>
+	<p>hello world</p>
 	<script src='./d3.v4.js'></script>
+	<script>
+		//选择<body>中所有的<p>，其文本内容为 www.ourd3js.com，选择集保存在变量 p 中
+		var p = d3.select("body")
+		          .selectAll("p")
+		          .text("www.ourd3js.com");
+
+		//修改段落的颜色和字体大小
+		p.style("color","red")
+		 .style("font-size","72px");
+	</script>
 </body>
 </html>
