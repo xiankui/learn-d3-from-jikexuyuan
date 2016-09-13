@@ -5,18 +5,44 @@
 	<title>learn d3 from jikexuyuan step by step</title>
 </head>
 <body>
-	<p>hello world</p>
-	<p>hello world</p>
+	<div id="datum">
+		<p>Apple</p>
+		<p>Pear</p>
+		<p>Banana</p>
+	</div>
+	<div id="data">
+		<p>Apple</p>
+		<p>Pear</p>
+		<p>Banana</p>
+	</div>
 	<script src='./d3.v4.js'></script>
 	<script>
-		//选择<body>中所有的<p>，其文本内容为 www.ourd3js.com，选择集保存在变量 p 中
-		var p = d3.select("body")
-		          .selectAll("p")
-		          .text("www.ourd3js.com");
+		// 一个数据绑定多个元素
+		(function () {
+			var str = "China";
 
-		//修改段落的颜色和字体大小
-		p.style("color","red")
-		 .style("font-size","72px");
+			var body = d3.select("body");
+			var p = body.select("#datum").selectAll("p");
+
+			p.datum(str);
+
+			p.text(function(d, i){
+			    return "第 "+ i + " 个元素绑定的数据是 " + d;
+			});
+		})();
+		
+		// 数组与元素的对应绑定
+		(function () {
+			var dataset = ["I like dog","I like cat","I like mou"];
+
+			var body = d3.select("body");
+			var p = body.select("#data").selectAll("p");
+
+			p.data(dataset)
+			 .text(function(d, i){
+			      return d;
+			 });
+		})();
 	</script>
 </body>
 </html>
